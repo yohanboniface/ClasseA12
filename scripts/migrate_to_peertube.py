@@ -30,7 +30,7 @@ PEERTUBE_URL = f"{PEERTUBE_BASE_URL}/api/v1"
 PEERTUBE_USER = "classea12"
 PEERTUBE_PASSWORD = os.environ.get("PEERTUBE_PASSWORD", "")
 SCURIOLUS_URL = os.environ.get(
-    "SCURIOLUS_URL", "https://files-staging.classe-a-12.beta.gouv.fr/"
+    "SCURIOLUS_URL", "https://files-staging.classe-a-12.beta.gouv.fr"
 )
 
 
