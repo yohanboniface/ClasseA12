@@ -397,7 +397,7 @@ def push_comments(skip_error=False, limit=1):
 
 @minicli.cli
 def push_videos(skip_error=False, limit=1, video_id=None):
-    profiles = {p.email: p for p in Profile.all()}
+    profiles = {p.username: p for p in Profile.all()}
     ownership = json.loads((ROOT / "mapping_video_user.json").read_text())
     url = f"{PEERTUBE_URL}/videos/upload"
     count = 0
@@ -417,12 +417,14 @@ def push_videos(skip_error=False, limit=1, video_id=None):
                 continue
         user = PEERTUBE_USER
         if video.id in ownership:
-            email = ownership[video.id]
-            profile = profiles.get(email)
+            username = ownership[video.id]
+            profile = profiles.get(username)
             if profile:
-                user = profile.username
+                user = username
+            elif video.quarantine:
+                user = "nicolas.leyri"
             else:
-                print(f"Owner not found for {email}")
+                print(f"Owner not found for {username}")
         print(f"Using user {user}")
         token = get_peertube_token(user)
         headers = {"Authorization": f"Bearer {token}"}
