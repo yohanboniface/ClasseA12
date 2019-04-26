@@ -438,10 +438,11 @@ def push_videos(skip_error=False, limit=1, video_id=None):
             "tags[]": [k[:30] for k in video.keywords[:5]],
             "commentsEnabled": True,
             "category": 13,
-            "originallyPublishedAt": datetime.fromtimestamp(
-                video.publish_date / 1000
-            ).isoformat(),
         }
+        if video.publish_date:
+            data["originallyPublishedAt"] = datetime.fromtimestamp(
+                video.publish_date / 1000
+            ).isoformat()
         files = {
             "videofile": (
                 video.attachment.get_filename(),
