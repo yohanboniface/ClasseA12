@@ -429,7 +429,7 @@ def push_videos(skip_error=False, limit=1, video_id=None):
         token = get_peertube_token(user)
         headers = {"Authorization": f"Bearer {token}"}
         channel_id = get_channel_id(headers)
-        keywords = [video.grade] + video.keywords
+        keywords = video.grade.split(" et ") + video.keywords
         data = {
             "name": video.title,
             "channelId": channel_id,
