@@ -429,13 +429,14 @@ def push_videos(skip_error=False, limit=1, video_id=None):
         token = get_peertube_token(user)
         headers = {"Authorization": f"Bearer {token}"}
         channel_id = get_channel_id(headers)
+        keywords = [video.grade] + video.keywords
         data = {
             "name": video.title,
             "channelId": channel_id,
             # PeerTube does not allow empty description.
             "description": video.description or video.title,
             "privacy": 1,
-            "tags[]": [k[:30] for k in video.keywords[:5]],
+            "tags[]": [k[:30] for k in keywords[:5]],
             "commentsEnabled": True,
             "category": 13,
         }
