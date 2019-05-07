@@ -350,7 +350,7 @@ def push_comments(skip_error=False, limit=1):
     admin_token = get_peertube_token(PEERTUBE_USER)
     admin_headers = {"Authorization": f"Bearer {admin_token}"}
     count = 0
-    for comment in Comment.all():
+    for comment in sorted(Comment.all(), key=lambda v: v.last_modified):
         video_id = MAPPING[comment.video]
         if comment.id in MAPPING:
             remote_id = MAPPING[comment.id]
